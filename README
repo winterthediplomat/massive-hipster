@@ -5,3 +5,12 @@ e devo starci mezza giornata per rimettere tutto.
 e la roba occidentale? no, faccio da me
 
 alfa is raging tonight
+
+### Usage ###
+
+1. create your .json files in /databases folder. create you schema, be free.
+2. launch build.py
+3. move the generated .html files from /generated to the folder you want to put these.
+
+### Notes ###
+It may be done better.
