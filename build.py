@@ -3,6 +3,25 @@ import jinja2
 import json
 from os import walk
 from os.path import join
+from collections import OrderedDict
+
+class OrderedSet(object):
+    """
+    too lazy to include the activestate recipe (or switch to a better python version)
+    """
+    def __init__(self):
+        self.data = OrderedDict()
+
+    def union(self, newDict):
+        for key in newDict:
+            if key not in self.data:
+              self.data[key]=key
+        return self
+
+    def keys(self):
+        return self.data.keys()
+    def values(self):
+        return self.data.values()
 
 def generate_page(data, pagename="books.html"):
     template = jinja2.Template(open("template.html").read())
@@ -10,7 +29,7 @@ def generate_page(data, pagename="books.html"):
 
 def read_json(jsonpath):
     doc=json.load(open(jsonpath))
-    headers = reduce(lambda thisset, listitem: thisset.union(listitem), doc, set())
+    headers = (reduce(lambda thisset, listitem: thisset.union(listitem), doc, OrderedSet())).keys()
     for book in doc:
         for head in headers:
             if head not in book: book[head]="n/a"
