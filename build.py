@@ -23,8 +23,8 @@ class OrderedSet(object):
     def values(self):
         return self.data.values()
 
-def generate_page(data, pagename="books.html"):
-    template = jinja2.Template(open("template.html").read())
+def generate_page(data, pagename="books.html", templatename="template.html"):
+    template = jinja2.Template(open(join("templates", templatename)).read())
     open(pagename, "w").write(template.render(headers=data["headers"], books=data["books"]))
 
 def read_json(jsonpath):
@@ -41,6 +41,7 @@ if __name__=="__main__":
             print file_
             data = read_json(join(act_path, file_)) 
             generate_page(data, join("./generated", file_.replace(".json", ".html")))
+        print [{file_.replace(".json", "") : "<a href=\""+file_.replace(".json", ".html")+"\">"+file_.replace(".json", "")+"</a>"} for file_ in files]
         generate_page({"headers": ("lists",),
                       "books": [{file_.replace(".json", "") : "<a href=\""+file_.replace(".json", ".html")+"\">"+file_.replace(".json", "")+"</a>"} for file_ in files]},
-                      "./generated/index.html")    
+                      "./generated/index.html", "index.html")    

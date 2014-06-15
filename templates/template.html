@@ -1,0 +1,22 @@
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>{{title}}</title>
+</head>
+<body>
+  <table border="1">
+  <tr>
+  {% for head_ in headers %}
+  <th>{{head_}}</th>
+  {% endfor %}
+  </tr>
+  {% for book in books %}
+  <tr>
+  {% for head_ in headers %}
+  <td>{{book[head_]}}</td>
+  {% endfor %} 
+  </tr>
+  {% endfor %}
+  </table>
+</body>
+</html>

@@ -2,7 +2,9 @@ aggiornare anobii mi sta sul cazzo, me lo scordo ogni volta
 e devo starci mezza giornata per rimettere tutto.
 
 >metti tutto su mal/anilist
-e la roba occidentale? no, faccio da me
+e la roba occidentale? mi serve un altro account.
+> >anobii >not goodreads
+ha lo stesso problema di anobii.
 
 alfa is raging tonight
 
@@ -12,5 +14,11 @@ alfa is raging tonight
 2. launch build.py
 3. move the generated .html files from /generated to the folder you want to put these.
 
+### Customization ###
+
+Modify the templates into the /templates folder to suit your UI needs.
+
 ### Notes ###
-It may be done better.
+It may be done better. Or it couldn't be done at all.
+
+This python project needs jinja2. Tested only on python2, as jinja2 py3k support is experimental.
