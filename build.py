@@ -26,7 +26,7 @@ class OrderedSet(object):
 def generate_page(data, pagename="books.html", templatename="template.html"):
     template = jinja2.Template(open(join("templates", templatename)).read())
     open(pagename, "w").write(template.render(
-                                      title=(data["title"] if "title" in data else "index"),
+                                      title=(data["title"] if "title" in data else pagename.replace("./generated/", "").replace(".html", "")),
                                       headers=data["headers"],
                                       books=data["books"]))
 
