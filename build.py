@@ -25,15 +25,20 @@ class OrderedSet(object):
 
 def generate_page(data, pagename="books.html", templatename="template.html"):
     template = jinja2.Template(open(join("templates", templatename)).read())
-    open(pagename, "w").write(template.render(headers=data["headers"], books=data["books"]))
+    open(pagename, "w").write(template.render(
+                                      title=(data["title"] if "title" in data else "index"),
+                                      headers=data["headers"],
+                                      books=data["books"]))
 
 def read_json(jsonpath):
     doc=json.load(open(jsonpath))
-    headers = (reduce(lambda thisset, listitem: thisset.union(listitem), doc, OrderedSet())).keys()
-    for book in doc:
-        for head in headers:
+    #print doc
+    #doc = map(dict, doc)
+    #headers = (reduce(lambda thisset, listitem: thisset.union(listitem), doc, OrderedSet())).keys()
+    for book in doc["list"]:
+        for head in doc["headers"]:
             if head not in book: book[head]="n/a"
-    return {"headers": headers, "books": doc }
+    return {"title": doc["title"], "headers": doc["headers"], "books": doc["list"] }
 
 if __name__=="__main__":
     for act_path, _, files in walk("./databases"):

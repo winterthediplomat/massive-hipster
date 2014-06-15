@@ -1,4 +1,7 @@
-[
+{
+  "title": "Test",
+  "headers": ["title", "author", "description"],
+  "list":[
 {
   "title": "muh book",
   "author": "a smart person",
@@ -6,6 +9,7 @@
 },
 {
   "title": "watchmen",
-  "author": "moore"
+  "author":  "moore"
 }
 ]
+}
