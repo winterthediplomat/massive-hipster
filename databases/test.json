@@ -1,6 +1,9 @@
 {
   "title": "Test",
   "headers": ["title", "author", "description"],
+  "defaults":{
+    "description": "no description"
+    },
   "list":[
 {
   "title": "muh book",

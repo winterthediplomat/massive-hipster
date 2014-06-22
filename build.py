@@ -37,16 +37,23 @@ def read_json(jsonpath):
     #headers = (reduce(lambda thisset, listitem: thisset.union(listitem), doc, OrderedSet())).keys()
     for book in doc["list"]:
         for head in doc["headers"]:
-            if head not in book: book[head]="n/a"
+            if head not in book:
+                try:
+                    book[head] = doc["defaults"][head]
+                except KeyError:
+                    book[head]="n/a"
     return {"title": doc["title"], "headers": doc["headers"], "books": doc["list"] }
 
 if __name__=="__main__":
     for act_path, _, files in walk("./databases"):
+        booktitles = []
         for file_ in files:
-            print file_
+            print( file_ )
             data = read_json(join(act_path, file_)) 
             generate_page(data, join("./generated", file_.replace(".json", ".html")))
-        print [{file_.replace(".json", "") : "<a href=\""+file_.replace(".json", ".html")+"\">"+file_.replace(".json", "")+"</a>"} for file_ in files]
+            booktitles.append({file_.replace(".json", "") : "<a href=\""+file_.replace(".json", ".html")+"\">"+data["title"]+"</a>"})
+
+        #print [{file_.replace(".json", "") : "<a href=\""+file_.replace(".json", ".html")+"\">"+file_.replace(".json", "")+"</a>"} for file_ in files]
         generate_page({"headers": ("lists",),
-                      "books": [{file_.replace(".json", "") : "<a href=\""+file_.replace(".json", ".html")+"\">"+file_.replace(".json", "")+"</a>"} for file_ in files]},
+                      "books": booktitles}, #[{file_.replace(".json", "") : "<a href=\""+file_.replace(".json", ".html")+"\">"+file_.replace(".json", "")+"</a>"} for file_ in files]},
                       "./generated/index.html", "index.html")    
